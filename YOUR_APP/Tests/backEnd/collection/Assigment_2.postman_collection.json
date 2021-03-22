@@ -1,0 +1,419 @@
+{
+	"info": {
+		"_postman_id": "2751fa0c-807b-47d1-9b6d-003b86966e22",
+		"name": "Assigment_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROJECT",
+			"item": [
+				{
+					"name": "Create a new Task",
+					"item": [
+						{
+							"name": "Create a new Task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"var name = pm.environment.get(\"taskName\");",
+											"pm.test(\"Task Name is correct\", function () {",
+											"    pm.expect(jsonData.name).to.eql(name);",
+											"});",
+											"",
+											"pm.environment.set(\"taskId\", jsonData.id);",
+											"",
+											"const schema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\": {",
+											"        \"id\": { \"type\": \"number\" },",
+											"        \"assigner\": { \"type\": \"number\" },",
+											"        \"project_id\": { \"type\": \"number\" },",
+											"        \"section_id\": { \"type\": \"number\" },",
+											"        \"order\": { \"type\": \"number\" },",
+											"        \"content\": { \"type\": \"string\" },",
+											"        \"completed\": { \"type\": \"boolean\" },",
+											"        \"label_ids\": {\"type\": \"array\"},",
+											"        \"priority\": { \"type\": \"number\" },",
+											"        \"comment_count\": { \"type\": \"number\" },",
+											"        \"content\": { \"type\": \"string\" },",
+											"        \"creator\": { \"type\": \"number\" },",
+											"        \"created\": { \"type\": \"string\" },",
+											"        \"due\": { \"type\": \"object\" },",
+											"        ",
+											"    },",
+											"    \"required\": [\"id\"],",
+											"    \"required\": [\"content\"]",
+											"};",
+											"",
+											"pm.test(\"Validate schema\", () => {",
+											"    pm.response.to.have.jsonSchema(schema);",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disabledSystemHeaders": {
+									"content-type": true
+								}
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Buy Milk\",\n    \"due_string\": \"tomorrow at 12:00\",\n    \"due_lang\": \"en\",\n    \"priority\": 4\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a New task with high ranges (Negative escenario)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Buy Milk\",\n    \"due_string\": \"tomorrow at 12:00\",\n    \"due_lang\": \"en\",\n    \"priority\": 45\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get active tasks",
+					"item": [
+						{
+							"name": "Get Active Tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const schema = {",
+											"    \"type\": \"array\",",
+											"    \"properties\": {",
+											"        \"code\": { \"type\": \"string\" }",
+											"    }",
+											"};",
+											"",
+											"pm.test(\"Validate schema\", () => {",
+											"    pm.response.to.have.jsonSchema(schema);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get an active task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Task Id is correct\", function () {",
+											"    var id = pm.environment.get(\"taskId\");",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).to.eql(id);",
+											"});",
+											"",
+											"const schema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\": {",
+											"        \"id\": { \"type\": \"number\" },",
+											"        \"assigner\": { \"type\": \"number\" },",
+											"        \"project_id\": { \"type\": \"number\" },",
+											"        \"section_id\": { \"type\": \"number\" },",
+											"        \"order\": { \"type\": \"number\" },",
+											"        \"content\": { \"type\": \"string\" },",
+											"        \"completed\": { \"type\": \"boolean\" },",
+											"        \"label_ids\": {\"type\": \"array\"},",
+											"        \"priority\": { \"type\": \"number\" },",
+											"        \"comment_count\": { \"type\": \"number\" },",
+											"        \"content\": { \"type\": \"string\" },",
+											"        \"creator\": { \"type\": \"number\" },",
+											"        \"created\": { \"type\": \"string\" },",
+											"        \"due\": { \"type\": \"object\" },",
+											"        ",
+											"    },",
+											"    \"required\": [\"id\"],",
+											"    \"required\": [\"content\"]",
+											"};",
+											"",
+											"pm.test(\"Validate schema\", () => {",
+											"    pm.response.to.have.jsonSchema(schema);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Tasks",
+					"item": [
+						{
+							"name": "Update task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Say Hi to the wizeline mentors\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update task with out-of range values",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"priority\": 45,\n     \"due\": {\n        \"recurring\": false,\n        \"string\": \"Tomorrow at 30:00\",\n        \"date\": \"2021-03-23\",\n        \"datetime\": \"2021-03-24T00:00:00Z\",\n        \"timezone\": \"America/Mexico_City\"\n    }\n}\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Close Tasks",
+					"item": [
+						{
+							"name": "Close a task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}/{{closeTask}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"{{closeTask}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reopen Tasks",
+					"item": [
+						{
+							"name": "Reopen Task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}/{{reopenTask}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"{{reopenTask}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Tasks",
+					"item": [
+						{
+							"name": "Delete Task",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/{{taskId}}",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 2xx\", function () {",
+					"    pm.response.to.be.success;",
+					"});",
+					"",
+					"pm.test(\"Response time is less than limit\", function() {",
+					"var limit = 800;",
+					"pm.expect(pm.response.responseTime, \"Response time was longer than \" + limit + \" ms.\").to.be.below(limit);",
+					"console.log(\"Response Time: \" + pm.response.responseTime + \" ms\" + \" / Response Date: \" + pm.response.headers.get(\"Date\"));",
+					"});",
+					""
+				]
+			}
+		}
+	]
+}

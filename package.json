@@ -1,0 +1,11 @@
+{
+  "name": "practice2",
+  "version": "1.0.0",
+  "description": "backend postman automation",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx newman run './YOUR_APP/Tests/backEnd/collection/Assigment_2.postman_collection.json' -e './YOUR_APP/Tests/backEnd/envVariables/QA-Tasks.postman_environment.json' -r htmlextra --reporter-htmlextra-export './YOUR_APP/Tests/backEnd/reports/report1.html'"
+  },
+  "author": "Luis Melchor",
+  "license": "ISC"
+}
