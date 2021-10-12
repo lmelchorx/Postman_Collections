@@ -1,4 +1,4 @@
-# ONBOARDINGCHALLENGE
+# Onboarding Challenge
 
 To run project testcases just execute "npm run test-projects " it will generate a visual report called "projectReport.html"
 To run task testcases just execute "npm run test-tasks " it will generate a visual report called "taskReport.html"
