@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-tasks": "npx newman run './YOUR_APP/Tests/backEnd/collection/TaskCollection.json' -e './YOUR_APP/Tests/backEnd/envVariables/QA-Tasks.postman_environment.json' -r htmlextra --reporter-htmlextra-export './YOUR_APP/Tests/backEnd/reports/taskReport.html'",
-    "test-projects": "npx newman run './YOUR_APP/Tests/backEnd/collection/ProjectCollection.json' -e './YOUR_APP/Tests/backEnd/envVariables/QA.postman_environment.json' -r htmlextra --reporter-htmlextra-export './YOUR_APP/Tests/backEnd/reports/projectReport1.html'"
+    "test-projects": "npx newman run './YOUR_APP/Tests/backEnd/collection/ProjectCollection.json' -e './YOUR_APP/Tests/backEnd/envVariables/QA.postman_environment.json' -r htmlextra --reporter-htmlextra-export './YOUR_APP/Tests/backEnd/reports/projectReport.html'"
   },
   "author": "Luis Melchor",
   "license": "ISC"

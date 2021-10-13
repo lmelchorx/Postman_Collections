@@ -96,6 +96,41 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get all projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const schema = {",
+											"    \"type\": \"array\",",
+											"    \"properties\": {",
+											"        \"code\": { \"type\": \"string\" }",
+											"    }",
+											"};",
+											"",
+											"pm.test(\"Validate schema\", () => {",
+											"    pm.response.to.have.jsonSchema(schema);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}",
+									"host": [
+										"{{baseURL}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
