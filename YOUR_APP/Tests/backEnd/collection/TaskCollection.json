@@ -2,12 +2,179 @@
 	"info": {
 		"_postman_id": "2751fa0c-807b-47d1-9b6d-003b86966e22",
 		"name": "Assigment_2",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "PROJECT",
 			"item": [
+				{
+					"name": "Create Project",
+					"item": [
+						{
+							"name": "Create a new Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"var name = pm.environment.get(\"projectName\");",
+											"pm.test(\"Project Name is correct\", function () {",
+											"    pm.expect(jsonData.name).to.eql(name);",
+											"});",
+											"",
+											"pm.environment.set(\"projectId\", jsonData.id);",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"id": "63648425-a9af-4989-b6bc-a4075b0276a8",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{projectName}}\"\n}"
+								},
+								"url": "{{baseURL}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = pm.response.json();",
+											"var name = pm.variables.get(\"projectNameDDT\");",
+											"pm.test(\"Project Name is correct\", function () {",
+											"    pm.expect(jsonData.name).to.eql(name);",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"id": "ead63cce-acc2-4c6b-bd4f-da0a774ee7cf",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{projectNameDDT}}\"\n}"
+								},
+								"url": "{{baseURL}}"
+							},
+							"response": []
+						}
+					],
+					"id": "36834ffa-3fc8-4401-b617-ec8e880795c1"
+				},
+				{
+					"name": "Get Project",
+					"item": [
+						{
+							"name": "Get Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"",
+											"pm.test(\"Project Id is correct\", function () {",
+											"    var id = pm.environment.get(\"projectId\");",
+											"    var jsonData = pm.response.json();",
+											"    pm.expect(jsonData.id).to.eql(id);",
+											"});"
+										]
+									}
+								}
+							],
+							"id": "3bfaafcb-58db-4b29-a05e-3df0c91460f3",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{baseURL}}/{{projectId}}"
+							},
+							"response": []
+						}
+					],
+					"id": "7b93d027-1a21-4054-8c07-7a9f24c58291"
+				},
+				{
+					"name": "Update Project",
+					"item": [
+						{
+							"name": "Update Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "7a60a5a1-1dd3-4b98-9441-657953190d61",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "3356a4f0-8e7c-4df5-8e31-9abd037bc61f",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Updated\"\n}"
+								},
+								"url": "{{baseURL}}/{{projectId}}"
+							},
+							"response": []
+						}
+					],
+					"id": "b02ae3df-2640-411a-989e-56c859fe7e26"
+				},
 				{
 					"name": "Create a new Task",
 					"item": [
@@ -17,6 +184,7 @@
 								{
 									"listen": "test",
 									"script": {
+										"type": "text/javascript",
 										"exec": [
 											"var jsonData = pm.response.json();",
 											"var name = pm.environment.get(\"taskName\");",
@@ -54,11 +222,11 @@
 											"});",
 											"",
 											""
-										],
-										"type": "text/javascript"
+										]
 									}
 								}
 							],
+							"id": "8f968b0f-b2e0-4751-8e3b-d8216b5413b1",
 							"protocolProfileBehavior": {
 								"disabledSystemHeaders": {
 									"content-type": true
@@ -93,17 +261,13 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseURL}}",
-									"host": [
-										"{{baseURL}}"
-									]
-								}
+								"url": "{{baseURL}}"
 							},
 							"response": []
 						},
 						{
 							"name": "Create a New task with high ranges (Negative escenario)",
+							"id": "ab6ada53-7ea6-4a9e-a3ec-d2933391a573",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -116,16 +280,12 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseURL}}",
-									"host": [
-										"{{baseURL}}"
-									]
-								}
+								"url": "{{baseURL}}"
 							},
 							"response": []
 						}
-					]
+					],
+					"id": "1ae858d3-3f55-4ca3-81bd-cdcdee5051b0"
 				},
 				{
 					"name": "Get active tasks",
@@ -136,6 +296,7 @@
 								{
 									"listen": "test",
 									"script": {
+										"type": "text/javascript",
 										"exec": [
 											"const schema = {",
 											"    \"type\": \"array\",",
@@ -148,20 +309,15 @@
 											"    pm.response.to.have.jsonSchema(schema);",
 											"});",
 											""
-										],
-										"type": "text/javascript"
+										]
 									}
 								}
 							],
+							"id": "53562e39-0d68-423c-a0b2-356eeccf552e",
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{baseURL}}",
-									"host": [
-										"{{baseURL}}"
-									]
-								}
+								"url": "{{baseURL}}"
 							},
 							"response": []
 						},
@@ -171,6 +327,7 @@
 								{
 									"listen": "test",
 									"script": {
+										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Task Id is correct\", function () {",
 											"    var id = pm.environment.get(\"taskId\");",
@@ -205,27 +362,20 @@
 											"    pm.response.to.have.jsonSchema(schema);",
 											"});",
 											""
-										],
-										"type": "text/javascript"
+										]
 									}
 								}
 							],
+							"id": "9336a003-7298-4a22-bc8d-3be7ffd44076",
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/{{taskId}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"{{taskId}}"
-									]
-								}
+								"url": "{{baseURL}}/{{taskId}}"
 							},
 							"response": []
 						}
-					]
+					],
+					"id": "007d6832-f361-471f-9062-8a63971363c6"
 				},
 				{
 					"name": "Update Tasks",
@@ -236,6 +386,7 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "5fc593e0-e881-4a23-8bf3-a4b841754489",
 										"exec": [
 											""
 										],
@@ -243,6 +394,7 @@
 									}
 								}
 							],
+							"id": "d7a894cf-45d2-4710-acf5-69ad637549e4",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -255,15 +407,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseURL}}/{{taskId}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"{{taskId}}"
-									]
-								}
+								"url": "{{baseURL}}/{{taskId}}"
 							},
 							"response": []
 						},
@@ -273,6 +417,7 @@
 								{
 									"listen": "test",
 									"script": {
+										"id": "6e980351-b2f4-44de-aae8-95e0b12faf20",
 										"exec": [
 											""
 										],
@@ -280,6 +425,7 @@
 									}
 								}
 							],
+							"id": "5e0c614a-cd74-42d5-bb9e-e0c32f698384",
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -292,105 +438,104 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseURL}}/{{taskId}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"{{taskId}}"
-									]
-								}
+								"url": "{{baseURL}}/{{taskId}}"
 							},
 							"response": []
 						}
-					]
+					],
+					"id": "1aae33de-7bd1-42ba-9560-597313823ea5"
 				},
 				{
 					"name": "Close Tasks",
 					"item": [
 						{
 							"name": "Close a task",
+							"id": "61bf3693-2eaa-42d2-849a-13687a04a664",
 							"request": {
 								"method": "POST",
 								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/{{taskId}}/{{closeTask}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"{{taskId}}",
-										"{{closeTask}}"
-									]
-								}
+								"url": "{{baseURL}}/{{taskId}}/{{closeTask}}"
 							},
 							"response": []
 						}
-					]
+					],
+					"id": "7843eba2-ff29-46f9-b259-c2186baf81ce"
 				},
 				{
 					"name": "Reopen Tasks",
 					"item": [
 						{
 							"name": "Reopen Task",
+							"id": "13162aae-f5b8-4714-a1ec-8c2a3898c5fa",
 							"request": {
 								"method": "POST",
 								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/{{taskId}}/{{reopenTask}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"{{taskId}}",
-										"{{reopenTask}}"
-									]
-								}
+								"url": "{{baseURL}}/{{taskId}}/{{reopenTask}}"
 							},
 							"response": []
 						}
-					]
+					],
+					"id": "2d2d8319-e5ce-47b2-9b3c-2cd98b22aa7d"
 				},
 				{
 					"name": "Delete Tasks",
 					"item": [
 						{
 							"name": "Delete Task",
+							"id": "566b4692-d94f-4d8e-b5d2-232b528606fd",
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{baseURL}}/{{taskId}}",
-									"host": [
-										"{{baseURL}}"
-									],
-									"path": [
-										"{{taskId}}"
-									]
-								}
+								"url": "{{baseURL}}/{{taskId}}"
 							},
 							"response": []
 						}
-					]
+					],
+					"id": "bc5c302a-e660-4f19-94ee-0518398e0f33"
+				},
+				{
+					"name": "Delete Project",
+					"item": [
+						{
+							"name": "Delete Project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "82d26a31-a468-49ba-be75-6680bd049ad9",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"id": "5df272b3-7f2f-4381-990f-a11a8f731733",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{baseURL}}/{{projectId}}"
+							},
+							"response": []
+						}
+					],
+					"id": "f2f9c4fa-c976-41c3-b865-b4de4ea8fd66"
 				}
-			]
+			],
+			"id": "68cf7d25-ea56-447b-89b5-2c94b089e62a"
 		}
 	],
 	"auth": {
 		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "{{token}}",
-				"type": "string"
-			}
-		]
+		"bearer": {
+			"token": "{{token}}"
+		}
 	},
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
+				"id": "52c6ec53-4f17-4558-bfc9-29999d1a507c",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -400,6 +545,7 @@
 		{
 			"listen": "test",
 			"script": {
+				"id": "0c094658-0c5d-4b2e-8f0d-f35244f060fc",
 				"type": "text/javascript",
 				"exec": [
 					"pm.test(\"Status code is 2xx\", function () {",
